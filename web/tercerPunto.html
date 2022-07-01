@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Stiven Herrera Sierra">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Calculadora IPv4</title>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html">
+            <h1>Proyecto 1: Calculadora IPv4</h1>
+        </a>
+        <a href="https://github.com/StivenHerreraSierra/Calculadora-IPv4" target="_blank" title="Ir a GitHub" class="logo">
+            <img class="icono" src="../img/github-orange-icon.png" alt="Icono de GitHub">
+            <span>GitHub</span>
+        </a>
+    </header>
+
+    <section class="contenedor">
+        <div id="separadores">
+            <a href="primerPunto.html">
+                <div class="separador" id="primerSeparador"></div>
+            </a>
+            <a href="segundoPunto.html">
+                <div class="separador" id="segundoSeparador"></div>
+            </a>
+            <a href="#">
+                <div class="separador" id="tercerSeparador"></div>
+            </a>
+        </div>
+
+        <div id="hoja">
+            <div class="agujero" id="primerAgujero"></div>
+            <div class="agujero" id="segundoAgujero"></div>
+            <div class="agujero" id="tercerAgujero"></div>
+
+            <div class="punto">
+                <h2 id="primerPunto">Tercer punto</h2>
+                <br>
+                <form>
+                    <div>
+                        <div id="entrada">
+                            <label id="labelEntrada" for="ip-entrada">Ingrese la IP de la red y su máscara de
+                            subred:</label>
+                            <div id="campos-ip">
+                                <input type="text" name="ip-entrada" class="ipEntrada" id="primerOctante" placeholder="###"
+                                    maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b" autofocus>
+                                <span>.</span>
+                                <input type="text" name="ip-entrada" class="ipEntrada" id="segundoOctante" placeholder="###"
+                                    maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                                <span>.</span>
+                                <input type="text" name="ip-entrada" class="ipEntrada" id="tercerOctante" placeholder="###"
+                                    maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                                <span>.</span>
+                                <input type="text" name="ip-entrada" class="ipEntrada" id="cuartoOctante" placeholder="###"
+                                    maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                                <span>/</span>
+                                <input type="text" name="ip-entrada" class="mascaraEntrada" id="mascaraSubred"
+                                    placeholder="##" maxlength="2" pattern="\b([0]?[1-9]|[1-2][0-9]|3[0-1])\b">
+                            </div>
+                            <div id="campos-bits-subredes">
+                                <label id="labelEntrada" for="ip-entrada">Ingrese la cantidad de bits para identificar subredes:</label>
+                                <input type="text" name="ip-entrada" class="mascaraEntrada" id="bitsMascaraSubred"
+                                    placeholder="##" maxlength="2" pattern="\b([0]?[1-9]|[1-2][0-9]|3[0-1])\b">
+                            </div>
+                            <div id="campo-botones">
+                                <input id="botonCalcular" type="button" title="Calcular IP" value="➤" onclick="calcularResultado()">
+
+                                <input id="botonGenerarIP" type="button" title="Calcular IP aleatoria" onclick="generarIpAleatoria()" value="&#9860;">
+
+                                <input id="botonLimpiar" type="button" title="Limpiar campos" onclick="limpiarCampos()" value="&#9003;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="lineaSeparadora">
+                    <hr>
+                    <span>Resultado</span>
+                    <hr>
+                </div>
+                <div id="respuestas">
+                    <div id="gridRespuestas">
+                        <label id="mascaraLabel">Direccion ip de la red: </label>
+                        <span id="ipRedRespuesta" class="respuesta"></span>
+        
+                        <label id="broadcastLabel">Dirección de broadcast de la red: </label>
+                        <span id="broadcastRespuesta" class="respuesta"></span>
+
+                        <label id="cantidadSubredesLabel">Cantidad de subredes: </label>
+                        <span id="cantidadSubredesRespuesta" class="respuesta"></span>
+
+                        <label id="cantidadHostSubred">Cantidad de hosts por cada subred: </label>
+                        <span id="cantidadHostSubredRespuesta" class="respuesta"></span>
+                    </div>
+                    <table id="rangoDirecciones">
+                        <tbody>
+                            <tr>
+                                <th>Dirección de red</th>
+                                <td><span id="direccionRedTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de broadcast</th>
+                                <td><span id="direccionBroadcastTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host inicial</th>
+                                <td><span id="direccionHostInicioTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host final</th>
+                                <td><span id="direccionHostFinTabla">###.###.###</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <label>Seleccione una subred a calcular:</label>
+                    <input list="idDatalistSubredes" id="idSubredEspecifica">
+                    <datalist id="idDatalistSubredes">
+                    </datalist>
+                    <input id="botonSubredEspecifica" type="button" title="Calcular" onclick="calcularSubredEspecifica()" value="Calcular subred especifica">
+
+                    <table id="rangoDireccionesSubred">
+                        <tbody>
+                            <tr>
+                                <th>Dirección de red</th>
+                                <td><span id="direccionSubredTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de broadcast</th>
+                                <td><span id="direccionBroadcastTablaSubred">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host inicial</th>
+                                <td><span id="direccionHostInicioTablaSubred">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host final</th>
+                                <td><span id="direccionHostFinTablaSubred">###.###.###</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <label>Especifique una subred a calcular (número):</label>
+                    <input list="idDatalistSubredesPosicion" id="idSubredEspecificaPosicion">
+                    <datalist id="idDatalistSubredesPosicion">
+                    </datalist>
+                    <input id="botonSubredEspecificaPosicion" type="button" title="Calcular" onclick="calcularSubredEspecificaPosicion()" value="Calcular subred">
+                    
+                    <table id="rangoDireccionesSubredPosicion">
+                        <tbody>
+                            <tr>
+                                <th>Dirección de red</th>
+                                <td><span id="direccionSubredTablaPosicion">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de broadcast</th>
+                                <td><span id="direccionBroadcastTablaSubredPosicion">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host inicial</th>
+                                <td><span id="direccionHostInicioTablaSubredPosicion">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host final</th>
+                                <td><span id="direccionHostFinTablaSubredPosicion">###.###.###</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <label>Especifique el host a buscar en la Subred anterior: </label>
+                    <input list="idDatalistHostPosicion" id="idSubredHostPosicion">
+                    <datalist id="idDatalistHostPosicion">
+                    </datalist>
+                    <input id="botonDireccionHostEspecifico" type="button" title="Calcular" onclick="calcularHostSubredEspecifica()" value="Calcular dirección">
+
+                    <label >Host de la subred: </label>
+                    <span id="ipHostRespuesta" class="respuesta"></span>
+                    
+                    <div id="direccionesHost">
+                        <label for=""><span id="advertencia" title="Sólo se listan 1000 direcciones como máximo">⚠️ </span>Lista de direcciones para host de la subred:</label>
+                        <ul id="listadoDirecciones">
+                        </ul>
+                    </div>
+
+                    <label >Ingrese la direccion de un host para hallar su Subred: </label>
+                    <input id="ipHostASubred" type="text">
+                    <input id="botonHostASubred" type="button" title="Calcular" onclick="calcularDireccionSubredHost()" value="Calcular dirección">
+                    <br>
+                    <label >Direccion Subred: </label>
+                    <span id="ipHostASubredRespuesta" class="respuesta"></span><br><br>
+                    <label >Determinar si dos direcciones IP hacen parte de la misma subred</label><br>
+                    <label >Ingrese la primera ip:</label>
+                    <input id="ipHostPrimeraComparar" type="text"><br>
+                    <label >Ingrese la segunda ip:</label>
+                    <input id="ipHostSegundaComparar" type="text"><br>
+                    <input id="botonHostComparar" type="button" title="Calcular" onclick="determinarMismaSubred()" value="Calcular dirección"><br>
+                    <label >Comparación: </label>
+                    <span id="ipHostComparar" class="respuesta"></span><br><br>
+                    
+                    <label >Indique una Subred:</label>
+                    <input list="idDatalistSubredesCantidadHosts" id="idSubredesCantidadHosts">
+                    <datalist id="idDatalistSubredesCantidadHosts">
+                    </datalist>
+
+                    <label >Ingrese la cantidad de hosts a mostrar:</label>
+                    <input id="idCantidadHosts" type="text"><br>
+                    <input id="botonHostsCantidad" type="button" title="Calcular" onclick="calcularDireccionesHostsCantidad()" value="Calcular direcciones"><br>
+                    <label >Hosts de la Subred: </label>
+                    <span id="idCantidadHostsRespuesta" class="respuesta"></span><br>
+
+                    <br>
+                    <label id="direccionSubred">Todas las subredes: </label>
+                    <div class="tablaSubredes" id="tablaSubredes">
+                        <table id="idTablaSubredes">
+                            <tr>
+                                <th>Subred</th>
+                                <th>Direccion Minima</th>
+                                <th>Direccion Maxima</th>
+                                <th>Direccion De Broadcast</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../code/codeTercerPunto.js"></script>
+</body>
+
+</html>

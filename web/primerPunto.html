@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Stiven Herrera Sierra">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Calculadora IPv4</title>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html">
+            <h1>Proyecto 1: Calculadora IPv4</h1>
+        </a>
+        <a href="https://github.com/StivenHerreraSierra/Calculadora-IPv4" target="_blank" title="Ir a GitHub" class="logo">
+            <img class="icono" src="../img/github-orange-icon.png" alt="Icono de GitHub">
+            <span>GitHub</span>
+        </a>
+    </header>
+
+    <section class="contenedor">
+        <div id="separadores">
+            <a href="#">
+                <div class="separador" id="primerSeparador"></div>
+            </a>
+            <a href="segundoPunto.html">
+                <div class="separador" id="segundoSeparador"></div>
+            </a>
+            <a href="tercerPunto.html">
+                <div class="separador" id="tercerSeparador"></div>
+            </a>
+        </div>
+
+        <div id="hoja">
+            <div class="agujero" id="primerAgujero"></div>
+            <div class="agujero" id="segundoAgujero"></div>
+            <div class="agujero" id="tercerAgujero"></div>
+
+            <div class="punto">
+                <h2 id="primerPunto">Primer punto</h2>
+                <br>
+                <form>
+                    <div>
+                        <div id="entrada">
+                            <label id="labelEntrada" for="ip-entrada">Ingrese la IP de la red y su máscara de
+                            subred:</label>
+                            <div id="campos-ip">
+                            <input type="text" name="ip-entrada" class="ipEntrada" id="primerOctante" placeholder="###"
+                                maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                            <span>.</span>
+                            <input type="text" name="ip-entrada" class="ipEntrada" id="segundoOctante" placeholder="###"
+                                maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                            <span>.</span>
+                            <input type="text" name="ip-entrada" class="ipEntrada" id="tercerOctante" placeholder="###"
+                                maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                            <span>.</span>
+                            <input type="text" name="ip-entrada" class="ipEntrada" id="cuartoOctante" placeholder="###"
+                                maxlength="3" pattern="\b([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\b">
+                            <span>/</span>
+                            <input type="text" name="ip-entrada" class="mascaraEntrada" id="mascaraSubred"
+                                placeholder="##" maxlength="2" pattern="\b([0]?[1-9]|[1-2][0-9]|3[0-1])\b">
+                            </div>
+                            <div id="campo-botones">
+                                <input id="botonCalcular" type="button" title="Calcular IP" value="➤" onclick="calcularResultado()">
+
+                                <input id="botonGenerarIP" type="button" title="Calcular IP aleatoria" onclick="generarIpAleatoria()" value="&#9860;">
+
+                                <input id="botonLimpiar" type="button" title="Limpiar campos" onclick="limpiarCampos()" value="&#9003;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="lineaSeparadora">
+                    <hr>
+                    <span>Resultado</span>
+                    <hr>
+                </div>
+                <div id="respuestas">
+                    <div id="gridRespuestas">
+                        <label id="mascaraLabel">Máscara de subred: </label>
+                        <span id="mascaraRespuesta" class="respuesta"></span>
+        
+                        <label id="broadcastLabel">Dirección de broadcast de la red: </label>
+                        <span id="broadcastRespuesta" class="respuesta"></span>
+        
+                        <label id="bitsRedLabel">Bits que identifican la red: </label>
+                        <span id="bitsRedRespuesta" class="respuesta"></span>
+        
+                        <label id="bitsHostLabel">Bits que identifican los hosts: </label>
+                        <span id="bitsHostRespuesta" class="respuesta"></span>
+        
+                        <label id="direccionesHostLabel">Total direcciones para hosts: </label>
+                        <span id="direccionesHostRespuesta" class="respuesta"></span>
+                    </div>
+                    <table id="rangoDirecciones">
+                        <tbody>
+                            <tr>
+                                <th>Dirección de red</th>
+                                <td><span id="direccionRedTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de broadcast</th>
+                                <td><span id="direccionBroadcastTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host inicial</th>
+                                <td><span id="direccionHostInicioTabla">###.###.###</span></td>
+                            </tr>
+        
+                            <tr>
+                                <th>Dirección de host final</th>
+                                <td><span id="direccionHostFinTabla">###.###.###</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                    <div id="direccionesHost">
+                        <label for=""><span id="advertencia" title="Sólo se listan 1000 direcciones como máximo">⚠️ </span>Lista de direcciones para host:</label>
+                        <ul id="listadoDirecciones">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../code/codePrimerPunto.js"></script>
+</body>
+
+</html>
